@@ -139,12 +139,6 @@ const requestListener = async (req, res) => {
   serveStatic(req, res, pathname);
 };
 
-const tlsCredentials = loadTlsCredentials();
-const server = tlsCredentials
-  ? https.createServer(tlsCredentials, requestListener)
-  : http.createServer(requestListener);
-const protocol = tlsCredentials ? 'https' : 'http';
-
 async function handleJoin(req, res) {
   try {
     const { room, name } = await parseBody(req);
@@ -276,9 +270,19 @@ function handleEventStream(req, res, parsedUrl) {
   });
 }
 
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`);
-  if (!tlsCredentials) {
-    console.warn('TLS credentials not found; running without HTTPS. Secure contexts are required for WebRTC in most browsers.');
-  }
-});
+module.exports = requestListener;
+
+if (require.main === module) {
+  const tlsCredentials = loadTlsCredentials();
+  const server = tlsCredentials
+    ? https.createServer(tlsCredentials, requestListener)
+    : http.createServer(requestListener);
+  const protocol = tlsCredentials ? 'https' : 'http';
+
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
+    if (!tlsCredentials) {
+      console.warn('TLS credentials not found; running without HTTPS. Secure contexts are required for WebRTC in most browsers.');
+    }
+  });
+}
