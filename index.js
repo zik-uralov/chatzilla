@@ -277,7 +277,7 @@ function handleEventStream(req, res, parsedUrl) {
 }
 
 server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server listening on ${protocol}://0.0.0.0:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
   if (!tlsCredentials) {
     console.warn('TLS credentials not found; running without HTTPS. Secure contexts are required for WebRTC in most browsers.');
   }

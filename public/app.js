@@ -51,7 +51,7 @@ async function handleJoin(event) {
   setStatus('Connecting…', 'status--idle');
 
   try {
-    const response = await fetch('/api/join', {
+    const response = await fetch('/join', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, room })
