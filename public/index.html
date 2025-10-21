@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ChatZilla • WebRTC Chatroom</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section id="join-panel" class="panel panel--active">
+        <div class="panel__content">
+          <h1>ChatZilla</h1>
+          <p class="tagline">Join a room to start chatting with audio &amp; text.</p>
+          <form id="join-form" autocomplete="off">
+            <label class="field">
+              <span>Display name</span>
+              <input id="name-input" type="text" name="name" maxlength="64" required />
+            </label>
+            <label class="field">
+              <span>Room code</span>
+              <input id="room-input" type="text" name="room" maxlength="32" required />
+            </label>
+            <button type="submit" class="primary">Enter room</button>
+          </form>
+          <p class="hint">Share the same room code with friends to connect.</p>
+        </div>
+      </section>
+
+      <section id="chat-panel" class="panel">
+        <header class="chat-header">
+          <div>
+            <h2 id="room-label"></h2>
+            <p id="status-label" class="status status--idle">Waiting to connect…</p>
+          </div>
+          <button id="leave-button" class="secondary" type="button">Leave</button>
+        </header>
+
+        <section class="media">
+          <div class="media__grid" id="media-grid">
+            <div class="media__tile media__tile--self">
+              <video id="local-video" class="media__video" autoplay muted playsinline></video>
+              <span class="media__label">You</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="chat-body">
+          <aside class="sidebar">
+            <h3>Participants</h3>
+            <ul id="peer-list" class="peer-list"></ul>
+          </aside>
+
+          <section class="chat">
+            <div id="message-feed" class="messages" aria-live="polite"></div>
+            <form id="message-form" class="message-form" autocomplete="off">
+              <input
+                id="message-input"
+                type="text"
+                name="message"
+                placeholder="Send a message"
+                maxlength="500"
+                disabled
+                required
+              />
+              <button id="send-button" class="primary" type="submit" disabled>Send</button>
+            </form>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <template id="message-template">
+      <article class="message">
+        <header class="message__meta">
+          <span class="message__author"></span>
+          <time class="message__time"></time>
+        </header>
+        <p class="message__body"></p>
+      </article>
+    </template>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

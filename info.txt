@@ -1,0 +1,6 @@
+1)Run the app:
+
+nmp start
+
+1) Run tunnel 
+cloudflared tunnel --url http://localhost:3000
